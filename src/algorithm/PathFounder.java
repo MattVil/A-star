@@ -25,22 +25,43 @@ public class PathFounder {
 		this.size = map.getSize();
 	}
 	
-	public LinkedList<Node> getPath(Node begin, Node end){
+	public ArrayList<Node> getPath(Node begin, Node goal){
 		
-		calculValue(begin, end);
+		calculValue(begin, goal);
+		begin.setPrevious(null);
 		openList.add(begin);
-		Node currentNode = begin;
-		
-		//ListIterator<Node> li = openList.listIterator();
 		
 		while(!openList.isEmpty()){
-			ArrayList<Node> neighbors = getViableNeighbour(currentNode);
+			
+			Node current = lowerInList(openList);
+			openList.remove(current);
+			closeList.add(current);
+			
+			if(current.equals(goal)){
+				return buildPath(begin, current);
+			}
+			
+			ArrayList<Node> neighbors = getViableNeighbour(current);
 			for (int i = 0; i < neighbors.size(); i++) {
-				calculValue(neighbors.get(i), end);
+				if(!isInCloseList(neighbors.get(i))){
+					calculValue(neighbors.get(i), goal);
+					if(isInOpenList(neighbors.get(i))){
+						if(current.getValue() < neighbors.get(i).getPrevious().getValue()){
+							neighbors.get(i).setPrevious(current);
+						}
+					}
+					else{
+						neighbors.get(i).setPrevious(current);
+						openList.add(neighbors.get(i));
+					}
+				}
 			}
 		}
 		
-		return closeList;
+		
+		ArrayList<Node> emptyList = new ArrayList<Node>();
+		emptyList.add(begin);
+		return emptyList;
 	}
 	
 	/**
@@ -104,5 +125,34 @@ public class PathFounder {
 				return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * this methode return the node with the lowest value in a linkedList
+	 * @param list
+	 * @return lower node
+	 */
+	public Node lowerInList(LinkedList<Node> list){
+		Node lower = list.getFirst();
+		
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).getValue() < lower.getValue()){
+				lower = list.get(i);
+			}
+		}
+		
+		return lower;
+	}
+	
+	public ArrayList<Node> buildPath(Node begin, Node goal){
+		ArrayList<Node> list = new ArrayList<Node>();
+		
+		Node tmp = goal;
+		while(!tmp.equals(begin)){
+			list.add(0, tmp);
+			tmp = tmp.getPrevious();
+		}
+		
+		return list;
 	}
 }

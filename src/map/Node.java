@@ -51,6 +51,6 @@ public class Node {
 	}
 
 	public String toString(){
-		return type + " : " + coord.toString() + " - " + value; 
+		return type + " : " + coord.toString() + " - " + value;
 	}
 }

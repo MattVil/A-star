@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import algorithm.PathFounder;
 import map.Map;
 
 /**
@@ -21,6 +22,8 @@ public class GUImap extends JFrame{
 	private Map mapStructure;
 	private int size;
 	
+	private PathFounder pathFounder;
+	
 	private JPanel fond = new JPanel();
 	
 	private JPanel mapPart = new JPanel();
@@ -31,6 +34,8 @@ public class GUImap extends JFrame{
 	public GUImap(Map map){
 		this.mapStructure = map;
 		this.size = map.getSize();
+		
+		this.pathFounder = new PathFounder(map);
 		
 		this.getContentPane().add(fond);
 		
@@ -65,6 +70,10 @@ public class GUImap extends JFrame{
 				mapPart.add(map[i][j]);
 			}
 		}
+	}
+	
+	public void setCase(int x, int y, Color color){
+		map[x][y].setBackground(color);
 	}
 	
 	public void refreshMap(){
