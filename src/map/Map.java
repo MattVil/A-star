@@ -55,4 +55,24 @@ public class Map {
 		else
 			return false;
 	}
+	
+	public int getElement(int x, int y){
+		return map[x][y]; 
+	}
+
+	public int[][] getMap() {
+		return map;
+	}
+
+	public void setMap(int[][] map) {
+		this.map = map;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
 }
