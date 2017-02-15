@@ -40,4 +40,8 @@ public class Node {
 	public void setValue(double value) {
 		this.value = value;
 	}
+	
+	public String toString(){
+		return type + " : " + coord.toString() + " - " + value; 
+	}
 }
