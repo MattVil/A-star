@@ -57,7 +57,14 @@ public class Map {
 	}
 	
 	public Node getNode(int x, int y){
-		return map[x][y];
+		if(x<size && x>=0){
+			if(y<size && y>=0)
+				return map[x][y];
+			else
+				return null;
+		}
+		return null;
+		
 	}
 
 	public Node[][] getMap() {
