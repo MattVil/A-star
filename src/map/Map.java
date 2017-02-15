@@ -10,19 +10,19 @@ public class Map {
 	  * 0 - empty case
 	  * 1 - full case - obstacle
 	  */
-	private int[][] map;
+	private Node[][] map;
 	private int size;
 	
 	public Map(int size){
 		this.size = size;
-		map = new int[size][size];
+		map = new Node[size][size];
 		initMap();
 	}
 	
 	public void initMap(){
 		for(int i=0; i<size; i++){
 			for (int j = 0; j < size; j++) {
-				map[i][j] = 0;
+				map[i][j] = new Node(new Coordinate(i,j), 0);
 			}
 		}
 	}
@@ -35,7 +35,7 @@ public class Map {
 	 */
 	public void addObstacle(int x, int y){
 		if(validCoord(x, y)){
-			map[x][y] = 1;
+			map[x][y].setValue(1);;
 		}
 	}
 	
@@ -56,15 +56,15 @@ public class Map {
 			return false;
 	}
 	
-	public int getElement(int x, int y){
-		return map[x][y]; 
+	public Node getNode(int x, int y){
+		return map[x][y];
 	}
 
-	public int[][] getMap() {
+	public Node[][] getMap() {
 		return map;
 	}
 
-	public void setMap(int[][] map) {
+	public void setMap(Node[][] map) {
 		this.map = map;
 	}
 
