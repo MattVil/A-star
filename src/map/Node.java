@@ -8,11 +8,13 @@ package map;
 public class Node {
 
 	private Coordinate coord;
-	private int value;
+	private int type;
+	private double value;
 	
-	public Node(Coordinate coord, int value){
+	public Node(Coordinate coord, int type){
 		this.coord = coord;
-		this.value = value;
+		this.type = type;
+		this.value = 0;
 	}
 
 	public Coordinate getCoord() {
@@ -23,11 +25,19 @@ public class Node {
 		this.coord = coord;
 	}
 
-	public int getValue() {
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public double getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 }

@@ -70,10 +70,10 @@ public class GUImap extends JFrame{
 	public void refreshMap(){
 		for(int i=0; i<size; i++){
 			for(int j=0; j<size; j++){
-				if(mapStructure.getNode(i, j).getValue() == 0){
+				if(mapStructure.getNode(i, j).getType() == 0){
 					map[i][j].setBackground(new Color(223,242,255));
 				}
-				else if(mapStructure.getNode(i, j).getValue() == 1){
+				else if(mapStructure.getNode(i, j).getType() == 1){
 					map[i][j].setBackground(new Color(150,150,150));
 				}
 			}

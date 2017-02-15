@@ -35,7 +35,7 @@ public class Map {
 	 */
 	public void addObstacle(int x, int y){
 		if(validCoord(x, y)){
-			map[x][y].setValue(1);;
+			map[x][y].setType(1);;
 		}
 	}
 	
