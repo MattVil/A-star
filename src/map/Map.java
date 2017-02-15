@@ -63,8 +63,8 @@ public class Map {
 			else
 				return null;
 		}
-		return null;
-		
+		else
+			return null;
 	}
 
 	public Node[][] getMap() {
