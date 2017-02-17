@@ -1,15 +1,14 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import algorithm.PathFounder;
 import map.Map;
 
 /**
@@ -17,75 +16,100 @@ import map.Map;
  * @author matthieu
  *
  */
-public class GUImap extends JFrame{
-
-	private Map mapStructure;
-	private int size;
+public class GUImap extends JPanel{
 	
-	private PathFounder pathFounder;
-	
-	private JPanel fond = new JPanel();
-	
-	private JPanel mapPart = new JPanel();
-	private JPanel settingPart = new JPanel();
-
-	private JPanel[][] map;
+	private Map map;
+	private int GRID_SIZE;
+	private Cell[][] jmap;
 	
 	public GUImap(Map map){
-		this.mapStructure = map;
-		this.size = map.getSize();
-		
-		this.pathFounder = new PathFounder(map);
-		
-		this.getContentPane().add(fond);
-		
-		this.map = new JPanel[size][size];
-		
-		initLayout();
-		initMapPart();
-		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1200, 600);
-		this.setResizable(true);
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		setPreferredSize(new Dimension(800, 800));
+        
+        this.map = map;
+        GRID_SIZE = map.getSize();
+        jmap = new Cell[GRID_SIZE][GRID_SIZE];
+        this.setLayout(new GridLayout(GRID_SIZE, GRID_SIZE));
+        this.initMap();
 	}
 	
-	public void initLayout(){
-		fond.setLayout(new GridLayout(1, 2));
-		fond.add(mapPart);
-		fond.add(settingPart);
-		mapPart.setLayout(new GridLayout(size, size));
-		settingPart.setLayout(new BoxLayout(settingPart, BoxLayout.PAGE_AXIS));
-	}
-	
-	public void initMapPart(){
-		for(int i=0; i<size; i++){
-			for(int j=0; j<size; j++){
-				JPanel p = new JPanel();
-				p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-				p.add(new JLabel("[" + i + "," + j + "]", JLabel.CENTER));
+	public void initMap(){
+		for (int i = 0; i < GRID_SIZE; i++) {
+			for (int j = 0; j < GRID_SIZE; j++) {
+				Cell cell = new Cell(i, j);
 				
-				map[i][j] = p;
-				mapPart.add(map[i][j]);
+                add(cell);
+                MouseListener ml = new MouseListener() {
+                    public void mouseClicked(MouseEvent e) {
+                        click(e, cell);
+                    }
+					public void mousePressed(MouseEvent e) {
+
+					}
+					public void mouseReleased(MouseEvent e) {
+	
+					}
+					public void mouseEntered(MouseEvent e) {
+	
+					}
+					public void mouseExited(MouseEvent e) {
+
+					}
+                };
+                cell.addMouseListener(ml);
+                jmap[i][j] = cell;
+                add(jmap[i][j]);
 			}
 		}
 	}
 	
 	public void setCase(int x, int y, Color color){
-		map[x][y].setBackground(color);
+		jmap[x][y].setBackground(color);
 	}
 	
 	public void refreshMap(){
-		for(int i=0; i<size; i++){
-			for(int j=0; j<size; j++){
-				if(mapStructure.getNode(i, j).getType() == 0){
-					map[i][j].setBackground(new Color(223,242,255));
+		for(int i=0; i<GRID_SIZE; i++){
+			for(int j=0; j<GRID_SIZE; j++){
+				if(map.getNode(i, j).getType() == 0){
+					jmap[i][j].setBackground(new Color(223,242,255));
 				}
-				else if(mapStructure.getNode(i, j).getType() == 1){
-					map[i][j].setBackground(new Color(150,150,150));
+				else if(map.getNode(i, j).getType() == 1){
+					jmap[i][j].setBackground(new Color(150,150,150));
 				}
+				else if(map.getNode(i, j).getType() == 2){
+					jmap[i][j].setBackground(new Color(0,250,0));
+				}
+				else if(map.getNode(i, j).getType() == 3){
+					jmap[i][j].setBackground(new Color(0,0,250));
+				}
+				else if(map.getNode(i, j).getType() == 4){
+					jmap[i][j].setBackground(new Color(250,0,0));
+				}
+				
 			}
 		}
+	}
+	
+	public void click(MouseEvent e, Cell cell) {
+	   	//System.out.println(cell.getX()+";"+cell.getY());
+	    int y = (cell.getX())/60;
+		int x = (cell.getY())/60;	
+		map.addObstacle(x, y);
+		refreshMap();
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	public Cell[][] getJmap() {
+		return jmap;
+	}
+
+	public void setJmap(Cell[][] jmap) {
+		this.jmap = jmap;
 	}
 }

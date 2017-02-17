@@ -37,7 +37,7 @@ public class PathFounder {
 			openList.remove(current);
 			closeList.add(current);
 			
-			if(current.equals(goal)){
+			if(current.getType() == 3){
 				return buildPath(begin, current);
 			}
 			
@@ -104,7 +104,7 @@ public class PathFounder {
 		}
 		
 		for (int i = 0; i < result.size(); i++) {
-			if(result.get(i).getType() != 0)
+			if(result.get(i).getType() == 1)
 				result.remove(i);
 		}
 		

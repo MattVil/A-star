@@ -17,6 +17,9 @@ public class Node {
 		this.type = type;
 		this.value = 0;
 	}
+	public Node(){
+		
+	}
 
 	public Coordinate getCoord() {
 		return coord;
