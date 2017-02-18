@@ -91,9 +91,12 @@ public class GUImap extends JPanel{
 	
 	public void click(MouseEvent e, Cell cell) {
 	   	//System.out.println(cell.getX()+";"+cell.getY());
-	    int y = (cell.getX())/60;
-		int x = (cell.getY())/60;	
-		map.addObstacle(x, y);
+	    int y = (cell.getX())*GRID_SIZE/600;
+		int x = (cell.getY())*GRID_SIZE/600;	
+		if(map.getNode(x, y).getType() == 0)
+			map.addObstacle(x, y);
+		else
+			map.getNode(x, y).setType(0);
 		refreshMap();
 	}
 
