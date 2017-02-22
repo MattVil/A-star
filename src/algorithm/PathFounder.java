@@ -13,6 +13,7 @@ import map.Node;
  */
 public class PathFounder {
 
+	//ERREUR 
 	private Map map;
 	private int size;
 	private LinkedList<Node> openList;

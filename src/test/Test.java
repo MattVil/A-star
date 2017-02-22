@@ -11,7 +11,7 @@ import run.Run;
 
 public class Test {
 	public static void main(String[] args) {
-		Run run = new Run(20);
+		Run run = new Run(15);
 		run.run();
 	}
 }
