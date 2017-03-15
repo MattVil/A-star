@@ -89,24 +89,23 @@ public class PathFounder {
 		
 
 		if(map.validCoord(currentX, currentY+1)){
-			result.add(map.getNode(currentX, currentY+1));
+			if(map.getNode(currentX, currentY+1).getType() != 1)
+				result.add(map.getNode(currentX, currentY+1));
 		}
 
 		if(map.validCoord(currentX, currentY-1)){
-			result.add(map.getNode(currentX, currentY-1));
+			if(map.getNode(currentX, currentY-1).getType() != 1)
+				result.add(map.getNode(currentX, currentY-1));
 		}
 
 		if(map.validCoord(currentX+1, currentY)){
-			result.add(map.getNode(currentX+1, currentY));
+			if(map.getNode(currentX+1, currentY).getType() != 1)
+				result.add(map.getNode(currentX+1, currentY));
 		}
 		
 		if(map.validCoord(currentX-1, currentY)){
-			result.add(map.getNode(currentX-1, currentY));
-		}
-		
-		for (int i = 0; i < result.size(); i++) {
-			if(result.get(i).getType() == 1)
-				result.remove(i);
+			if(map.getNode(currentX-1, currentY).getType() != 1)
+				result.add(map.getNode(currentX-1, currentY));
 		}
 		
 		return result;
